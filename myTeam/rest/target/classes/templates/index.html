@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--
+	Desarrollado por Hugo Escribano como parte del TFG en la Universidad Internacional de la Rioja
+    Licencia GNU General Public License v3.0
+-->
+<html ng-app="deportes">
+<head>
+	<meta charset="UTF-8" />
+	<title>Jerarquia</title>
+<link type="text/css" rel="stylesheet" href="css/ionicons.css" media="all"/>
+</head>
+
+<body ng-app="springmvc-angular" ng-controller="JerarquiaController" ng-init="getDeportes()">
+
+	<div class="container" ng-show="deportes != null">
+		<ul class="film-info-bottom" ng-repeat="deporte in deportes">
+			<li ng-init="deporte.abrir=false">
+				<div ng-click="deporte.abrir=!deporte.abrir">
+				{{deporte.nombre}} <i class="ion-ios-star grey" />
+				</div>
+				<ul ng-show="deporte.abrir">
+					<li ng-repeat="competicion in deporte.lstCompeticiones" ng-init="competicion.abrir=false" >
+						<div ng-click="competicion.abrir=!competicion.abrir">{{competicion.nombre}}</div>
+						<ul ng-show="mostrarEquipo(competicion)">
+							<li ng-repeat="equipo in competicion.lstEquipos" ng-init="competicion.abrir=false">
+								<div ng-click="competicion.abrir=!competicion.abrir">
+								{{equipo.nombre}} <i class="ion-ios-star yellow" />
+								</div>
+							</li>
+						</ul>
+						<ul ng-show="mostrarDeportista(competicion)">
+							<li ng-repeat="deportista in competicion.lstDeportistas" ng-init="deportista.abrir=false">
+								<div ng-click="deportista.abrir=!deportista.abrir">
+								{{deportista.nombre}}
+								</div>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				</li>
+		</ul>
+	</div>
+	
+	<div class="form">
+		<label for="title">T�tulo:</label>
+		<input id="title" ng-model="nombre" type="text" />
+		
+		
+		
+		<button id="addBtn" class="btn" ng-click="addDeporte()">A�adir pel�cula</button>
+	</div>
+	
+	<h4>{{msg}}</h4>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-resource.js"></script>
+	<script src="./js/services.js"></script>
+</body>
+</html>

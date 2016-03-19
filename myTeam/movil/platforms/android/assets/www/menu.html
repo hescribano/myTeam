@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html ng-app="deportes">
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com http://localhost:8080 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+		<link type="text/css" rel="stylesheet" href="css/ionicons.css" media="all"/>
+		<title>Hello World</title>
+    </head>
+    <body ng-app="springmvc-angular" ng-controller="JerarquiaController">
+        <div id="barraPrincipal">
+        	<img src="img/menu.png" class="menu" ng-click="menu()" />
+        	<div>myTeam</div>
+        </div>
+		<div class="container" ng-show="deportes != null">
+		<ul class="film-info-bottom" ng-repeat="deporte in deportes">
+			<li ng-init="deporte.abrir=false">
+				<div ng-click="deporte.abrir=!deporte.abrir">
+				{{deporte.nombre}} <i class="ion-ios-star grey" />
+				</div>
+				<ul ng-show="deporte.abrir">
+					<li ng-repeat="competicion in deporte.lstCompeticiones" ng-init="competicion.abrir=false" >
+						<div ng-click="competicion.abrir=!competicion.abrir">{{competicion.nombre}}</div>
+						<ul ng-show="mostrarEquipo(competicion)">
+							<li ng-repeat="equipo in competicion.lstEquipos" ng-init="competicion.abrir=false">
+								<div ng-click="competicion.abrir=!competicion.abrir">
+								{{equipo.nombre}} <i class="ion-ios-star yellow" />
+								</div>
+							</li>
+						</ul>
+						<ul ng-show="mostrarDeportista(competicion)">
+							<li ng-repeat="deportista in competicion.lstDeportistas" ng-init="deportista.abrir=false">
+								<div ng-click="deportista.abrir=!deportista.abrir">
+								{{deportista.nombre}}
+								</div>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				</li>
+		</ul>
+	</div>
+	
+	<div class="form">
+		<label for="title">T�tulo:</label>
+		<input id="title" ng-model="nombre" type="text" />
+		
+		
+		
+		<button id="addBtn" class="btn" ng-click="addDeporte()">A�adir pel�cula</button>
+	</div>
+	
+	<h4>{{msg}}</h4>
+	
+        <script>
+			$(document).bind('mobileinit',function(){
+				$.mobile.pushStateEnabled = false;
+			});
+		</script>
+	<script src="./js/libs/angularjs/1_2_21/angular.js">
+</script>
+	<script src="./js/libs/angularjs/1_2_21/angular-resource.js">
+</script>
+	<script src="./js/services.js">
+</script>
+        <script type="text/javascript" src="cordova.js">
+</script>
+        <script type="text/javascript" src="js/index.js">
+</script>
+    </body>
+</html>

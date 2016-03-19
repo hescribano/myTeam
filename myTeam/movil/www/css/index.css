@@ -1,0 +1,387 @@
+/* <!--
+	Desarrollado por Hugo Escribano como parte del TFG en la Universidad Internacional de la Rioja
+    Licencia GNU General Public License v3.0
+-->*/
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+html, body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color:#E4E4E4;
+    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image:-webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #A7A7A7),
+        color-stop(0.51, #E4E4E4)
+    );
+    background-attachment:fixed;
+    font-size:16px;
+    height:100%;
+    margin:0px;
+    padding:0px;
+    width:100%;
+    background-image:url('../img/fondo.png');
+    background-repeat:no-repeat;
+background-position: center center;
+font-family: roboto, sans-serif, arial,verdana;
+}
+
+/* Portrait layout (default) */
+.app {
+    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
+    position:absolute;             /* position in the center of the screen */
+    left:50%;
+    top:50%;
+    height:50px;                   /* text area height */
+    width:225px;                   /* text area width */
+    text-align:center;
+    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .app {
+        background-position:left center;
+        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
+        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
+                                      /* offset horizontal: half of image width and text area width */
+    }
+}
+
+h1 {
+    font-size:24px;
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}
+
+.event {
+    border-radius:4px;
+    -webkit-border-radius:4px;
+    color:#FFFFFF;
+    font-size:12px;
+    margin:0px 30px;
+    padding:2px 0px;
+}
+
+.event.listening {
+    background-color:#333333;
+    display:block;
+}
+
+.event.received {
+    background-color:#4B946A;
+    display:none;
+}
+
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+@-webkit-keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+.blink {
+    animation:fade 3000ms infinite;
+    -webkit-animation:fade 3000ms infinite;
+}
+#barraPrincipal{
+    background: #86b9db
+  background-image: -webkit-linear-gradient(top, #86b9db, #000000);
+  background-image: -moz-linear-gradient(top, #86b9db, #2980b9);
+  background-image: -ms-linear-gradient(top, #86b9db, #2980b9);
+  background-image: -o-linear-gradient(top, #86b9db, #2980b9);
+  background-image: linear-gradient(to bottom, #86b9db, #2980b9);
+  -webkit-box-shadow: 0px 1px 0px #666666;
+  -moz-box-shadow: 0px 1px 0px #666666;
+  box-shadow: 0px 1px 0px #666666;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 40px 10px 20px;
+  text-decoration: none;
+  text-align: center;
+}
+#barraPrincipal>div{
+  display:inline;  
+  text-align: center;
+}
+img.menu{
+    float:left;    
+    height:20px;
+    width:20px;
+    padding: 0px 10px 0px 10px;
+}
+
+.menu>div, .favoritos>div,.favoritos>ul>li>div{
+    background: #a6d9fb
+  background-image: -webkit-linear-gradient(top, #a6d9fb, #49a0d9);
+  background-image: -moz-linear-gradient(top, #a6d9fb, #49a0d9);
+  background-image: -ms-linear-gradient(top, #a6d9fb, #49a0d9);
+  background-image: -o-linear-gradient(top, #a6d9fb, #49a0d9);
+  background-image: linear-gradient(to bottom, #a6d9fb, #49a0d9);
+  -webkit-box-shadow: 0px 1px 0px #666666;
+  -moz-box-shadow: 0px 1px 0px #666666;
+  box-shadow: 0px 1px 0px #666666;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 0px 10px 20px;
+  text-decoration: none;
+  text-align: center;
+}
+.favoritos>ul>li>div{
+  text-align:left;
+}
+
+.favoritos .competicion{
+    background: #DEEFFB
+  background-image: -webkit-linear-gradient(top, ##DEEFFB, #BBE1FB);
+  background-image: -moz-linear-gradient(top, #DEEFFB, #BBE1FB);
+  background-image: -ms-linear-gradient(top, #DEEFFB, #BBE1FB);
+  background-image: -o-linear-gradient(top, #DEEFFB, #BBE1FB);
+  background-image: linear-gradient(to bottom, #DEEFFB, #BBE1FB);
+  -webkit-box-shadow: 0px 1px 0px #666666;
+  -moz-box-shadow: 0px 1px 0px #666666;
+  box-shadow: 0px 1px 0px #666666;
+  color: #888888;
+  font-size: 20px;
+  padding: 10px 20px 10px 40px;
+  text-decoration: none;
+  text-align: left;
+}
+ul{
+  list-style-type: none;
+  -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0;
+}
+
+
+.noticias>div, .partido, .favoritos .equipo{
+    background: #A7A7A7
+  background-image: -webkit-linear-gradient(top, #A7A7A7, #E4E4E4);
+  background-image: -moz-linear-gradient(top, #A7A7A7, #E4E4E4);
+  background-image: -ms-linear-gradient(top, #A7A7A7, #E4E4E4);
+  background-image: -o-linear-gradient(top, #A7A7A7, #E4E4E4);
+  background-image: linear-gradient(to bottom, #A7A7A7, #E4E4E4);
+  -webkit-box-shadow: 0px 1px 0px #666666;
+  -moz-box-shadow: 0px 1px 0px #666666;
+  box-shadow: 0px 1px 0px #666666;
+}
+.favoritos .equipo{
+  padding: 5px 20px 5px 60px;
+}
+ .favoritos .equipo>img, .favoritos .competicion>img{
+   float:right;
+   width: 18px;
+   height:18px;
+ }
+.detalleNoticia>img, .noticias>div>img{
+  float:left;
+  width: 4em;
+  height: 4em;
+}
+.detalleNoticia>div:nth-child(3),.noticias>div>div{
+ margin-left:5em;
+  height: 4em;
+  padding-top: 5px;
+  font-weight:bold;
+}
+.detalleNoticia>span{
+  clear:both;
+}
+.detalleNoticia, degradado, #calendario td{
+   background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image:-webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #A7A7A7),
+        color-stop(0.51, #E4E4E4)
+    );
+}
+.detalleNoticia>div.menu>img{
+  padding-top:10px;
+}
+.detalleNoticia p{
+
+    padding: 0 10px;
+}
+.filtro{
+  float:right;
+  width:20px;
+  height:20px;
+  padding-right:10px;
+}
+.resultados>.competicion{
+     background: #eeeeff
+  background-image: -webkit-linear-gradient(top, #eeeeff, #89e0f9);
+  background-image: -moz-linear-gradient(top, #eeeeff, #89e0f9);
+  background-image: -ms-linear-gradient(top, #eeeeff, #89e0f9);
+  background-image: -o-linear-gradient(top, #eeeeff, #89e0f9);
+  background-image: linear-gradient(to bottom, #eeeeff, #ccccff);
+  -webkit-box-shadow: 0px 1px 0px #666666;
+  -moz-box-shadow: 0px 1px 0px #666666;
+  box-shadow: 0px 1px 0px #666666;
+  color: #222255;
+  font-size: 14px;
+  padding: 3px 10px 3px 10px;
+  text-decoration: none;
+  text-align: left;
+}
+.partido img{
+  width:25px;
+  height:2em;
+}
+.equipo1>img{
+  float:right;
+}
+.partido{
+  display: flex;
+  align-items: center;
+  position:relative;
+}
+.resultado{
+  font-size:22px;
+  font-weight:bold;
+  height:2em;
+  float:left;
+  width:20%;
+}
+.equipo1{float:left;width:38%;position:relative;padding-left:5px;}
+.equipo2>.centradov{margin-left:30px;}
+.equipo1>.centradov{margin-right:30px;text-align:right;    width: 78%;}
+.centrado{
+  position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+}
+
+.centradov{
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.centradoh{
+  position: absolute;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, 0);
+}
+.competicion>div{
+  float:right;
+}
+.competicion img{
+  float:right;
+  margin-left:10px; 
+  max-width: 20px;
+    height: 18px;
+}
+.fila{
+ clear:both;
+}
+.clasificacion>tbody>tr>td:first-child{
+ width:10%;
+ text-align:right;
+}
+.clasificacion>tbody>tr>td:nth-child(2){
+  padding-left:3%;
+ width:65%;
+}
+.clasificacion>tbody>tr>td:nth-child(3){
+ width:20%;
+ text-align: right;
+}
+.tenis>tbody>tr>td:first-child{
+ width:70%;
+ padding-left:5px;
+
+}
+.tenis>tbody>tr>td:nth-child(2){
+ width:1em;
+}
+.tenis>tbody>tr>td:nth-child(3){
+ width:1em;
+}
+.tenis>tbody>tr>td:nth-child(4){
+ width:1em;
+}
+
+
+.multimedia>tr>td:first-child{
+ width:60%;
+
+}
+.multimedia>tr>td:nth-child(2){
+ width:40%;
+ padding-right:8px;
+}
+
+.multimedia img{
+  width:200px;
+  height:133px;
+}
+#calendario{
+  width:100%;
+  height:90%;
+}
+#calendario td{
+  width:14%;
+}
+#calendario table, #calendario th, #calendario td {
+   -- border:1px solid black;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    vertical-align:top;
+    padding: 5px;
+    color:#333333;
+    height:17%;
+}
+#calendario th{
+  height:2em;
+}
+div.evento{
+  width:90%;
+  height:2em;
+  border-radius: 10px;
+  background-color:brown;
+  text-align:center;
+  margin-bottom:5px;
+  padding:3px 3px;
+}
+.evento>img{
+  width:80%;
+  height:95%;
+}
+select.mes{
+  float:right;
+  margin: auto 5px;
+  border-radius:7px;
+  background-color: #69A7D0;
+  color: white;
+  padding:0 5px;
+  font-size:large;
+  border: 2px solid #cccccc;
+}

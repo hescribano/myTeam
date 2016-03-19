@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html ng-app="deportes">
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com http://localhost:8080 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta charset="UTF-8">
+		<meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+		<link rel="stylesheet" type="text/css" href="fonts/roboto/font.css">
+		<link type="text/css" rel="stylesheet" href="css/ionicons.css" media="all"/>
+		<title>myTeam</title>
+    </head>
+    <body ng-app="springmvc-angular" ng-controller="JerarquiaController" ng-init="ventana='principal'">
+        <div id="barraPrincipal">
+        	myTeam
+        	<img src="img/menu.png" class="menu" ng-click="goto('menu')" ng-show="ventana!='menu'"/>
+        	<img src="img/atras.png" class="menu" ng-click="goto('principal')" ng-show="ventana=='menu'" />
+        	<img src="img/filtro.png" class="filtro" ng-click="goto('filtro')" ng-show="ventana=='noticias' || ventana=='multimedia'" />
+
+
+        	<select class="mes" ng-show="ventana=='calendario'">
+        		<option>Enero</option>
+        		<option>Febrero</option>
+        		<option>Marzo</option>
+        		<option selected>Abril</option>
+        		<option>Mayo</option>
+        		<option>Junio</option>
+        		<option>Julio</option>
+        		<option>Agosto</option>
+        		<option>Septiembre</option>
+        		<option>Octubre</option>
+        		<option>Noviembre</option>
+        		<option>Diciembre</option>
+        	</select>
+        </div>
+
+        <!--  MENU -->
+		<div class="menu" ng-show="ventana=='menu'">
+			<div ng-click="goto('noticias')">Noticias</div>
+			<div ng-click="goto('resultados')">Resultados</div>
+			<div ng-click="goto('multimedia')">Multimedia</div>
+			<div ng-click="goto('calendario')">Calendario</div>
+			<div ng-click="goto('favoritos')">Configurar alertas</div>
+		</div>
+		<!--  NOTICIAS -->
+		<div class="noticias" ng-show="ventana=='noticias'">
+			<div ng-click="goto('recopa')">
+				<img src="img/recopa.jpg" />
+				<div> El Real Zaragoza gana la Recopa con un gol de Nayim en el minuto 120</div>
+			</div>
+			<div ng-click="goto('valverde')">
+				<img src="img/valverde.jpg" />
+				<div>Bronce de Valverde, su sexta medalla, y oro para Kwiatkowski</div>
+			</div>
+			<div ng-click="goto('ruiz')">
+				<img src="img/ruiz.jpg" />
+				<div>El Cai Zaragoza destituye a su entrenador Ruiz Llorente por la mala actuación en la ACB</div>
+			</div>
+			<div ng-click="goto('nadal')">
+				<img src="img/nadal.jpg" />
+				<div>Rafa Nadal vuelve a ganar en París ante la desesperación de Roger Federer</div>
+			</div>
+			<div ng-click="goto('Contador')">
+				<img src="img/Contador.jpg" />
+				<div>Froome cede el maillot amarillo ante los ataques de un inagotable Contador</div>
+			</div>
+			<div ng-click="goto('alierta')">
+				<img src="img/alierta.jpg" />
+				<div>Alierta une fuerzas con la familia Yarza (Heraldo) para salvar al Real Zaragoza</div>
+			</div>
+			<div ng-click="goto('mundial')">
+				<img src="img/mundial.jpg" />
+				<div>La selección española gana su primer mundial de fútbol frente a una salvaje Holanda</div>
+			</div>
+		</div>
+		
+
+		<!-- ruiz -->
+		<div class="detalleNoticia" ng-show="ventana=='alierta'">
+			<div class="menu">
+				<img src="img/atras.png" class="menu " ng-click="goto('noticias')"/>
+				<div ng-click="goto('noticias')">Noticias</div>
+			</div>
+				<img src="img/alierta.jpg" />
+				<div>Alierta une fuerzas con la familia Yarza (Heraldo) para salvar al Real Zaragoza</div>
+				<div>
+				<p>El oro se volvió a resistir. Alejandro Valverde sumó su sexta medalla mundialista, cuarta de bronce, pero el maillot arcoíris reposará durante el próximo año en el cuerpo del polaco Michal Kwiatkowski, que obtuvo el premio a su picardía y atrevimiento finales sobre el trazado de 254,8 kilómetros de los Mundiales de ciclismo en ruta de Ponferrada 2014. La plata se la colgó el gran favorito: el australiano Simon Gerrans.
+
+				</p><p>Valverde ya lo había anunciado el día anterior: “Todos sabemos dónde hay que atacar para ganar”. Efectivamente, todos los sabían. Ese punto era el último repecho, el Mirador, a falta de 5 kilómetros. Y así fue: Purito Rodríguez rompió el grupo de los nobles con una arrancada a la que luego dio continuidad Valverde. Y junto a él, varios de los grandes candidatos: Gerrans, los belgas Van Avermaet y Gilbert; el danés Breschel, el francés Gallopin…
+
+				</p><p>El problema para ellos es que Kwiatkowski había decidido antes romper el guión. Como todos sabían dónde había que atacar, el polaco lo hizo un poco antes. Con sigilo. Kiato arrancó a 7 kilómetros de la meta, enlazó con los cuatro fugados (De Marchi, Gautier, Valgren Andersen y Kiryienka), tomó un poco de aire y se marchó en solitario. Había que tener buenas piernas para resistir el zarandeo final. Las tenía. Y también había que esperar que atrás surgieran los titubeos. Alguno hubo. Gilbert tiró a saco en favor de Van Avermaet, pero Kwiatkowski aguantó en cabeza y se coronó campeón del mundo con 24 años.
+				</p>(Diario AS, 28 de septiembre de 2014)
+				</div>
+		</div>
+		
+
+		<!-- ruiz -->
+		<div class="detalleNoticia" ng-show="ventana=='ruiz'">
+			<div class="menu">
+				<img src="img/atras.png" class="menu " ng-click="goto('noticias')"/>
+				<div ng-click="goto('noticias')">Noticias</div>
+			</div>
+				<img src="img/ruiz.jpg" />
+				<div>El Cai Zaragoza destituye a su entrenador Ruiz Llorente</div>
+				<div>
+				<p>El oro se volvió a resistir. Alejandro Valverde sumó su sexta medalla mundialista, cuarta de bronce, pero el maillot arcoíris reposará durante el próximo año en el cuerpo del polaco Michal Kwiatkowski, que obtuvo el premio a su picardía y atrevimiento finales sobre el trazado de 254,8 kilómetros de los Mundiales de ciclismo en ruta de Ponferrada 2014. La plata se la colgó el gran favorito: el australiano Simon Gerrans.
+
+				</p><p>Valverde ya lo había anunciado el día anterior: “Todos sabemos dónde hay que atacar para ganar”. Efectivamente, todos los sabían. Ese punto era el último repecho, el Mirador, a falta de 5 kilómetros. Y así fue: Purito Rodríguez rompió el grupo de los nobles con una arrancada a la que luego dio continuidad Valverde. Y junto a él, varios de los grandes candidatos: Gerrans, los belgas Van Avermaet y Gilbert; el danés Breschel, el francés Gallopin…
+
+				</p><p>El problema para ellos es que Kwiatkowski había decidido antes romper el guión. Como todos sabían dónde había que atacar, el polaco lo hizo un poco antes. Con sigilo. Kiato arrancó a 7 kilómetros de la meta, enlazó con los cuatro fugados (De Marchi, Gautier, Valgren Andersen y Kiryienka), tomó un poco de aire y se marchó en solitario. Había que tener buenas piernas para resistir el zarandeo final. Las tenía. Y también había que esperar que atrás surgieran los titubeos. Alguno hubo. Gilbert tiró a saco en favor de Van Avermaet, pero Kwiatkowski aguantó en cabeza y se coronó campeón del mundo con 24 años.
+				</p>(Diario AS, 28 de septiembre de 2014)
+				</div>
+		</div>
+		
+
+		<!-- ruiz -->
+		<div class="detalleNoticia" ng-show="ventana=='mundial'">
+			<div class="menu">
+				<img src="img/atras.png" class="menu " ng-click="goto('noticias')"/>
+				<div ng-click="goto('noticias')">Noticias</div>
+			</div>
+				<img src="img/mundial.jpg" />
+				<div>España gana su primer mundial de fútbol frente a una salvaje Holanda</div>
+				<div>
+				<p>El oro se volvió a resistir. Alejandro Valverde sumó su sexta medalla mundialista, cuarta de bronce, pero el maillot arcoíris reposará durante el próximo año en el cuerpo del polaco Michal Kwiatkowski, que obtuvo el premio a su picardía y atrevimiento finales sobre el trazado de 254,8 kilómetros de los Mundiales de ciclismo en ruta de Ponferrada 2014. La plata se la colgó el gran favorito: el australiano Simon Gerrans.
+
+				</p><p>Valverde ya lo había anunciado el día anterior: “Todos sabemos dónde hay que atacar para ganar”. Efectivamente, todos los sabían. Ese punto era el último repecho, el Mirador, a falta de 5 kilómetros. Y así fue: Purito Rodríguez rompió el grupo de los nobles con una arrancada a la que luego dio continuidad Valverde. Y junto a él, varios de los grandes candidatos: Gerrans, los belgas Van Avermaet y Gilbert; el danés Breschel, el francés Gallopin…
+
+				</p><p>El problema para ellos es que Kwiatkowski había decidido antes romper el guión. Como todos sabían dónde había que atacar, el polaco lo hizo un poco antes. Con sigilo. Kiato arrancó a 7 kilómetros de la meta, enlazó con los cuatro fugados (De Marchi, Gautier, Valgren Andersen y Kiryienka), tomó un poco de aire y se marchó en solitario. Había que tener buenas piernas para resistir el zarandeo final. Las tenía. Y también había que esperar que atrás surgieran los titubeos. Alguno hubo. Gilbert tiró a saco en favor de Van Avermaet, pero Kwiatkowski aguantó en cabeza y se coronó campeón del mundo con 24 años.
+				</p>(Diario AS, 28 de septiembre de 2014)
+				</div>
+		</div>
+		
+
+		<!-- nadal -->
+		<div class="detalleNoticia" ng-show="ventana=='nadal'">
+			<div class="menu">
+				<img src="img/atras.png" class="menu " ng-click="goto('noticias')"/>
+				<div ng-click="goto('noticias')">Noticias</div>
+			</div>
+				<img src="img/nadal.jpg" />
+				<div>Rafa Nadal vuelve a ganar en París</div>
+				<div>
+				<p>El oro se volvió a resistir. Alejandro Valverde sumó su sexta medalla mundialista, cuarta de bronce, pero el maillot arcoíris reposará durante el próximo año en el cuerpo del polaco Michal Kwiatkowski, que obtuvo el premio a su picardía y atrevimiento finales sobre el trazado de 254,8 kilómetros de los Mundiales de ciclismo en ruta de Ponferrada 2014. La plata se la colgó el gran favorito: el australiano Simon Gerrans.
+
+				</p><p>Valverde ya lo había anunciado el día anterior: “Todos sabemos dónde hay que atacar para ganar”. Efectivamente, todos los sabían. Ese punto era el último repecho, el Mirador, a falta de 5 kilómetros. Y así fue: Purito Rodríguez rompió el grupo de los nobles con una arrancada a la que luego dio continuidad Valverde. Y junto a él, varios de los grandes candidatos: Gerrans, los belgas Van Avermaet y Gilbert; el danés Breschel, el francés Gallopin…
+
+				</p><p>El problema para ellos es que Kwiatkowski había decidido antes romper el guión. Como todos sabían dónde había que atacar, el polaco lo hizo un poco antes. Con sigilo. Kiato arrancó a 7 kilómetros de la meta, enlazó con los cuatro fugados (De Marchi, Gautier, Valgren Andersen y Kiryienka), tomó un poco de aire y se marchó en solitario. Había que tener buenas piernas para resistir el zarandeo final. Las tenía. Y también había que esperar que atrás surgieran los titubeos. Alguno hubo. Gilbert tiró a saco en favor de Van Avermaet, pero Kwiatkowski aguantó en cabeza y se coronó campeón del mundo con 24 años.
+				</p>(Diario AS, 28 de septiembre de 2014)
+				</div>
+		</div>
+		
+
+		<!-- Contador -->
+		<div class="detalleNoticia" ng-show="ventana=='Contador'">
+			<div class="menu">
+				<img src="img/atras.png" class="menu " ng-click="goto('noticias')"/>
+				<div ng-click="goto('noticias')">Noticias</div>
+			</div>
+				<img src="img/Contador.jpg" />
+				<div>Froome cede el maillot amarillo a los ataques de Contador</div>
+				<div>
+				<p>El oro se volvió a resistir. Alejandro Valverde sumó su sexta medalla mundialista, cuarta de bronce, pero el maillot arcoíris reposará durante el próximo año en el cuerpo del polaco Michal Kwiatkowski, que obtuvo el premio a su picardía y atrevimiento finales sobre el trazado de 254,8 kilómetros de los Mundiales de ciclismo en ruta de Ponferrada 2014. La plata se la colgó el gran favorito: el australiano Simon Gerrans.
+
+				</p><p>Valverde ya lo había anunciado el día anterior: “Todos sabemos dónde hay que atacar para ganar”. Efectivamente, todos los sabían. Ese punto era el último repecho, el Mirador, a falta de 5 kilómetros. Y así fue: Purito Rodríguez rompió el grupo de los nobles con una arrancada a la que luego dio continuidad Valverde. Y junto a él, varios de los grandes candidatos: Gerrans, los belgas Van Avermaet y Gilbert; el danés Breschel, el francés Gallopin…
+
+				</p><p>El problema para ellos es que Kwiatkowski había decidido antes romper el guión. Como todos sabían dónde había que atacar, el polaco lo hizo un poco antes. Con sigilo. Kiato arrancó a 7 kilómetros de la meta, enlazó con los cuatro fugados (De Marchi, Gautier, Valgren Andersen y Kiryienka), tomó un poco de aire y se marchó en solitario. Había que tener buenas piernas para resistir el zarandeo final. Las tenía. Y también había que esperar que atrás surgieran los titubeos. Alguno hubo. Gilbert tiró a saco en favor de Van Avermaet, pero Kwiatkowski aguantó en cabeza y se coronó campeón del mundo con 24 años.
+				</p>(Diario AS, 28 de septiembre de 2014)
+				</div>
+		</div>
+
+
+
+
+		<!-- Valverde -->
+		<div class="detalleNoticia" ng-show="ventana=='valverde'">
+			<div class="menu">
+				<img src="img/atras.png" class="menu " ng-click="goto('noticias')"/>
+				<div ng-click="goto('noticias')">Noticias</div>
+			</div>
+				<img src="img/valverde.jpg" />
+				<div> Bronce de Valverde, su sexta medalla, y oro para Kwiatkowski</div>
+				<div>
+				<p>El oro se volvió a resistir. Alejandro Valverde sumó su sexta medalla mundialista, cuarta de bronce, pero el maillot arcoíris reposará durante el próximo año en el cuerpo del polaco Michal Kwiatkowski, que obtuvo el premio a su picardía y atrevimiento finales sobre el trazado de 254,8 kilómetros de los Mundiales de ciclismo en ruta de Ponferrada 2014. La plata se la colgó el gran favorito: el australiano Simon Gerrans.
+
+				</p><p>Valverde ya lo había anunciado el día anterior: “Todos sabemos dónde hay que atacar para ganar”. Efectivamente, todos los sabían. Ese punto era el último repecho, el Mirador, a falta de 5 kilómetros. Y así fue: Purito Rodríguez rompió el grupo de los nobles con una arrancada a la que luego dio continuidad Valverde. Y junto a él, varios de los grandes candidatos: Gerrans, los belgas Van Avermaet y Gilbert; el danés Breschel, el francés Gallopin…
+
+				</p><p>El problema para ellos es que Kwiatkowski había decidido antes romper el guión. Como todos sabían dónde había que atacar, el polaco lo hizo un poco antes. Con sigilo. Kiato arrancó a 7 kilómetros de la meta, enlazó con los cuatro fugados (De Marchi, Gautier, Valgren Andersen y Kiryienka), tomó un poco de aire y se marchó en solitario. Había que tener buenas piernas para resistir el zarandeo final. Las tenía. Y también había que esperar que atrás surgieran los titubeos. Alguno hubo. Gilbert tiró a saco en favor de Van Avermaet, pero Kwiatkowski aguantó en cabeza y se coronó campeón del mundo con 24 años.
+				</p>(Diario AS, 28 de septiembre de 2014)
+				</div>
+		</div>
+
+
+		<!-- Recopa -->
+		<div class="detalleNoticia" ng-show="ventana=='recopa'">
+			<div class="menu">
+				<img src="img/atras.png" class="menu " ng-click="goto('noticias')"/>
+				<div ng-click="goto('noticias')">Noticias</div>
+			</div>
+				<img src="img/recopa.jpg" />
+				<div> El Real Zaragoza gana la Recopa con un gol de Nayim en el minuto 120</div>
+				<div>
+				<p>El oro se volvió a resistir. Alejandro Valverde sumó su sexta medalla mundialista, cuarta de bronce, pero el maillot arcoíris reposará durante el próximo año en el cuerpo del polaco Michal Kwiatkowski, que obtuvo el premio a su picardía y atrevimiento finales sobre el trazado de 254,8 kilómetros de los Mundiales de ciclismo en ruta de Ponferrada 2014. La plata se la colgó el gran favorito: el australiano Simon Gerrans.
+
+				</p><p>Valverde ya lo había anunciado el día anterior: “Todos sabemos dónde hay que atacar para ganar”. Efectivamente, todos los sabían. Ese punto era el último repecho, el Mirador, a falta de 5 kilómetros. Y así fue: Purito Rodríguez rompió el grupo de los nobles con una arrancada a la que luego dio continuidad Valverde. Y junto a él, varios de los grandes candidatos: Gerrans, los belgas Van Avermaet y Gilbert; el danés Breschel, el francés Gallopin…
+
+				</p><p>El problema para ellos es que Kwiatkowski había decidido antes romper el guión. Como todos sabían dónde había que atacar, el polaco lo hizo un poco antes. Con sigilo. Kiato arrancó a 7 kilómetros de la meta, enlazó con los cuatro fugados (De Marchi, Gautier, Valgren Andersen y Kiryienka), tomó un poco de aire y se marchó en solitario. Había que tener buenas piernas para resistir el zarandeo final. Las tenía. Y también había que esperar que atrás surgieran los titubeos. Alguno hubo. Gilbert tiró a saco en favor de Van Avermaet, pero Kwiatkowski aguantó en cabeza y se coronó campeón del mundo con 24 años.
+				</p>(Diario AS, 28 de septiembre de 2014)
+				</div>
+		</div>
+
+
+
+
+		<!--  RESULTADOS -->
+		<div class="resultados" ng-show="ventana=='resultados'">
+			<div class="competicion">
+				Recopa
+				<div>Fútbol<img src="img/futbol.png" /></div>
+			</div>
+			<div class="partido">
+					<div class="equipo1">
+						<div class="centradov">Real Zaragoza</div> <img src="img/rzgz.png" />
+					</div> 
+					<div class="resultado"><div class="centrado">2 - 1</div></div>
+					<div class="equipo2">
+					<img src="img/arsenal.png" />
+						<div class="centradov">
+							 Arsenal
+						</div>
+					</div>
+			</div>
+			<div class="competicion">
+				La Liga
+				<div>Fútbol<img src="img/futbol.png" /></div>
+			</div>
+			<div class="partido">
+					<div class="equipo1">
+						<div class="centradov">Logroñes</div> <img src="img/logrones.png" />
+					</div> 
+					<div class="resultado"><div class="centrado">1 - 1</div></div>
+					<div class="equipo2">
+						<div class="centradov">Real Zaragoza</div> <img src="img/rzgz.png" />
+					</div>
+			</div>
+			<div class="partido">
+					<div class="equipo1">
+						<div class="centradov">Real Zaragoza</div> <img src="img/rzgz.png" />
+					</div> 
+					<div class="resultado"><div class="centrado">3 - 0</div></div>
+					<div class="equipo2">
+					<img src="img/chelsea.png" />
+						<div class="centradov">
+							 Chelsea
+						</div>
+					</div>
+			</div>
+
+			<div class="competicion">
+				ACB
+				<div>Baloncesto<img src="img/basket.png" /></div>
+			</div>
+			<div class="partido">
+					<div class="equipo1">
+						<div class="centradov">Cai Zaragoza</div> <img src="img/cai.png" />
+					</div> 
+					<div class="resultado"><div class="centrado">85-78</div></div>
+					<div class="equipo2">
+						<div class="centradov">Gran Canarias</div> <img src="img/canarias.png" />
+					</div>
+			</div>
+			<div class="partido">
+					<div class="equipo1">
+						<div class="centradov">Chicago Bulls</div> <img src="img/bulls.png" />
+					</div> 
+					<div class="resultado"><div class="centrado">91-93</div></div>
+					<div class="equipo2">
+						<div class="centradov">Cai Zaragoza</div> <img src="img/cai.png" />
+					</div>
+			</div>
+			<div class="competicion">
+				Eurocup
+				<div>Baloncesto<img src="img/basket.png" /></div>
+			</div>
+			<div class="partido">
+					<div class="equipo1">
+						<div class="centradov">Cai Zaragoza</div> <img src="img/cai.png" />
+					</div> 
+					<div class="resultado"><div class="centrado">74-72</div></div>
+					<div class="equipo2">
+						<div class="centradov">Olympiacos</div> <img src="img/olympiacos.png" />
+					</div>
+			</div>
+
+			<div class="competicion">
+				Etapa 15ª - Tour Francia
+				<div>Ciclismo<img src="img/bike.png" /></div>
+			</div>
+			<div class="partido">
+					<table class="clasificacion">
+					<tbody>
+						<tr>
+							<td>1º</td>
+							<td>Alejandro Valverde</td>
+							<td>4h:22':32''</td>
+						</tr>
+						<tr>
+							<td>2º</td>
+							<td>Alberto Contador</td>
+							<td>m.t.</td>
+						</tr>
+						<tr>
+							<td>3º</td>
+							<td>Peter Sagan</td>
+							<td>a 20"</td>
+						</tr>
+						<tr>
+							<td>4º</td>
+							<td>Dani Moreno</td>
+							<td>a 42"</td>
+						</tr>
+						<tr>
+							<td>5º</td>
+							<td>Purito Rodríguez</td>
+							<td>a 1'20"</td>
+						</tr>
+						<tr>
+							<td>6º</td>
+							<td>Vincenzo Nibali</td>
+							<td>a 2'51"</td>
+						</tr>
+						<tr>
+							<td>7º</td>
+							<td>Richie Porte</td>
+							<td>a m.t.</td>
+						</tr>
+						<tr>
+							<td>8º</td>
+							<td>Chris Froome</td>
+							<td>a 16'13''</td>
+						</tr>
+						</tbody>
+					</table>
+			</div>
+
+			<div class="competicion">
+				Rolland Garros
+				<div>Tenis<img src="img/tenis.png" /></div>
+			</div>
+			<div class="partido">
+					<table class="tenis">
+					<tbody>
+						<tr>
+							<td>Rafa Nadal</td>
+							<td>6</td>
+							<td>4</td>
+							<td>7</td>
+							<td>7</td>
+						</tr>
+						<tr>
+							<td>Novak Djokovic</td>
+							<td>3</td>
+							<td>6</td>
+							<td>5</td>
+							<td>7</td>
+						</tr>
+						</tbody>
+					</table>
+			</div>
+
+			<div class="partido">
+					<table class="tenis">
+					<tbody>
+						<tr>
+							<td>Rafa Nadal</td>
+							<td>6</td>
+							<td>3</td>
+							<td>6</td>
+							<td>6</td>
+						</tr>
+						<tr>
+							<td>Roger Federer</td>
+							<td>1</td>
+							<td>6</td>
+							<td>2</td>
+							<td>3</td>
+						</tr>
+						</tbody>
+					</table>
+			</div>
+
+			<div class="partido">
+					<table class="tenis">
+					<tbody>
+						<tr>
+							<td>Rafa Nadal</td>
+							<td>6</td>
+							<td>3</td>
+							<td>6</td>
+							<td>6</td>
+						</tr>
+						<tr>
+							<td>Andy Murray</td>
+							<td>1</td>
+							<td>6</td>
+							<td>2</td>
+							<td>3</td>
+						</tr>
+						</tbody>
+					</table>
+			</div>
+		</div>
+
+
+
+
+		<!-- multimedia -->
+		<div class="resultados" ng-show="ventana=='multimedia'">
+			<div class="competicion">
+				&nbsp;<div>Fútbol<img src="img/futbol.png" /></div>
+			</div>
+			<div class="partido">
+				<table>
+					<tbody class="multimedia">
+						<tr>
+							<td><img src="img/video1.jpg" /></td>
+							<td>Resumen del partido de liga de la jornada 23 Real Zaragoza - Eibar</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="partido">
+				<table>
+					<tbody class="multimedia">
+						<tr>
+							<td><img src="img/video2.jpg" /></td>
+							<td>7º gol de Ángel en la temporada</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="competicion">
+				&nbsp;<div>Baloncesto<img src="img/basket.png" /></div>
+			</div>
+			<div class="partido">
+				<table>
+					<tbody class="multimedia">
+						<tr>
+							<td><img src="img/video3.jpg" /></td>
+							<td>Triple sobre la bocina de Tomás Bellas</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="competicion">
+				&nbsp;<div>Ciclismo<img src="img/bike.png" /></div>
+			</div>
+			<div class="partido">
+				<table>
+					<tbody class="multimedia">
+						<tr>
+							<td><img src="img/video4.jpg" /></td>
+							<td>Ataque de Contador en el Tourmalet para irse en solitario hacia el amarillo</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="competicion">
+				&nbsp;<div>Tenis<img src="img/tenis.png" /></div>
+			</div>
+			<div class="partido">
+				<table>
+					<tbody class="multimedia">
+						<tr>
+							<td><img src="img/video5.jpg" /></td>
+							<td>Espectacular punto en el 3er set entre Nadal y Federer</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
+
+
+
+		<!-- Calendario -->
+		 <table id="calendario" ng-show="ventana=='calendario'">
+			<tr id="fila0" ng-init="initMes('abril')">
+				<th ng-repeat="dia in calendario.semana">
+					{{dia}}
+				</th>
+			</tr>
+			<tr>
+				<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>1</td><td>2</td><td>3<div class="evento"><img src="img/futbol.png" /></div></td>
+			</tr>
+			<tr id="fila2">
+				<td>4</td><td>5<div class="evento"><img src="img/bike.png" /></div></td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+			<tr id="fila3">
+				<td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16<div class="evento"><img src="img/futbol.png" /></div></td><td>17<div class="evento"><img src="img/tenis.png" /></div><div class="evento"><img src="img/basket.png" /></div></td>
+			</tr>
+			<tr id="fila4">
+				<td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td>
+			</tr>
+			<tr id="fila5">
+				<td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31<div class="evento"><img src="img/futbol.png" /></div></td>
+			</tr>
+			
+		  </table>
+
+
+		<div class="favoritos" ng-show="ventana=='favoritos' && deportes != null">
+		<ul ng-repeat="deporte in deportes">
+			<li ng-init="deporte.abrir=false">
+				<div ng-click="deporte.abrir=!deporte.abrir">
+				{{deporte.nombre}} 
+				</div>
+				<ul ng-show="deporte.abrir">
+					<li ng-repeat="competicion in deporte.lstCompeticiones" ng-init="competicion.abrir=false" >
+						<div class="competicion" ng-click="competicion.abrir=!competicion.abrir">
+							{{competicion.nombre}}
+								<img src="img/favam.png" ng-show="competicion.fav" ng-click="competicion.fav=!competicion.fav;$event.stopPropagation();"  />
+								<img src="img/favgr.png" ng-show="!competicion.fav" ng-click="competicion.fav=!competicion.fav;$event.stopPropagation();"/>
+						</div>
+						<ul ng-show="mostrarEquipo(competicion)">
+							<li ng-repeat="equipo in competicion.lstEquipos" ng-init="competicion.abrir=false">
+								<div class="equipo" ng-click="equipo.fav=!equipo.fav" >
+								{{equipo.nombre}} 
+								<img src="img/favam.png" ng-show="equipo.fav" />
+								<img src="img/favgr.png" ng-show="!equipo.fav"/>
+								</div>
+							</li>
+						</ul>
+						<ul ng-show="mostrarDeportista(competicion)">
+							<li ng-repeat="deportista in competicion.lstDeportistas" ng-init="deportista.abrir=false">
+								<div class="equipo" ng-click="deportista.fav=!deportista.fav">
+								{{deportista.nombre}}
+								<img src="img/favam.png" ng-show="deportista.fav"/>
+								<img src="img/favgr.png" ng-show="!deportista.fav"/>
+								</div>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				</li>
+		</ul>
+	</div>
+	
+	
+        <!--<script>
+			$(document).bind('mobileinit',function(){
+				$.mobile.pushStateEnabled = false;
+			});
+		</script>
+		 <script type="text/javascript" src="cordova.js">
+</script>
+        <script type="text/javascript" src="js/index.js">
+</script>-->
+	<script src="./js/libs/angularjs/1_2_21/angular.js">
+</script>
+	<script src="./js/libs/angularjs/1_2_21/angular-resource.js">
+</script>
+	<script src="./js/jerarquia.js">
+</script>
+	<script src="./js/services.js">
+</script>
+       
+    </body>
+</html>
